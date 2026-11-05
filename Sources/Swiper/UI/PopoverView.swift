@@ -10,8 +10,11 @@ struct PopoverView: View {
         VStack(spacing: 0) {
             header(status)
             if status == .needsPermission {
-                Banner(kind: .warning, title: "Accessibility permission needed",
-                       message: "Swiper needs it to see when both mouse buttons are held.",
+                Banner(kind: .warning,
+                       title: state.tapFailed ? "macOS is still blocking Swiper" : "Accessibility permission needed",
+                       message: state.tapFailed
+                           ? "Swiper is switched on, but the grant is stale. Remove Swiper from the Accessibility list with the minus button, add it again, then reopen the app."
+                           : "Swiper needs it to see when both mouse buttons are held.",
                        actionTitle: "Open System Settings") { state.openSystemSettingsAccessibility() }
                     .padding(.horizontal, 12).padding(.top, 12).padding(.bottom, 4)
             }

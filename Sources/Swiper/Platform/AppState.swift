@@ -4,7 +4,7 @@ import Foundation
 import SwiperCore
 
 /// Versions the owner has verified the gesture on. Add the current version here once a real swipe works.
-let testedVersions: [OSVersion] = []
+let testedVersions: [OSVersion] = [OSVersion(major: 27, minor: 0)]
 
 /// Puts the pieces together and keeps the event tap in line with settings and permission.
 @MainActor
@@ -12,11 +12,14 @@ final class AppState: ObservableObject {
     let permission = PermissionMonitor()
     let health = HealthMonitor()
     let store = SettingsStore()
+    @Published private(set) var tapFailed = false
     private var controller: EventTapController?
+    private var retryTimer: Timer?
+    private let recorder = GestureRecorder()
     private var cancellables = Set<AnyCancellable>()
 
     var status: AppStatus {
-        resolveStatus(enabled: store.settings.enabled, permissionGranted: permission.isGranted, gestureHealthy: health.isHealthy)
+        resolveStatus(enabled: store.settings.enabled, permissionGranted: permission.isGranted && !tapFailed, gestureHealthy: health.isHealthy)
     }
 
     var compatibilityResult: CompatibilityResult {
@@ -61,8 +64,20 @@ final class AppState: ObservableObject {
         let s = store.settings
         controller.updateSettings(clickDelayMs: s.clickDelayMs, sensitivity: s.sensitivity)
         let shouldRun = s.enabled && permission.isGranted
-        if shouldRun && !controller.isRunning { try? controller.start() }
-        if !shouldRun && controller.isRunning { controller.stop() }
+        if permission.isGranted { recorder.start() }
+        if shouldRun && !controller.isRunning {
+            do { try controller.start(); tapFailed = false }
+            catch { tapFailed = true }
+        }
+        if !shouldRun && controller.isRunning { controller.stop(); tapFailed = false }
+        if !shouldRun { tapFailed = false }
+        // macOS can say "allowed" yet still refuse the tap (stale grant after a rebuild). Keep retrying.
+        if tapFailed && retryTimer == nil {
+            retryTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { [weak self] _ in
+                Task { @MainActor in self?.syncTap() }
+            }
+        }
+        if !tapFailed { retryTimer?.invalidate(); retryTimer = nil }
     }
 }
 
