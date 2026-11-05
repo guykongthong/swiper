@@ -26,3 +26,22 @@ import Testing
     lock.reset()
     #expect(lock.feed(dx: 0, dy: 10) == .vertical)
 }
+
+@Test func ambiguousDiagonalWaitsForAClearDirection() {
+    var lock = AxisLock(lockDistance: 8)
+    #expect(lock.feed(dx: 9, dy: -7) == nil)      // far enough, but not clearly either way
+    #expect(lock.feed(dx: 1, dy: -20) == .vertical) // now vertical clearly dominates
+}
+
+@Test func diagonalIsDecidedAnywayOnceItGoesFarEnough() {
+    var lock = AxisLock(lockDistance: 8)
+    var result: SwipeAxis?
+    for _ in 0..<10 { result = lock.feed(dx: 5, dy: -4) }
+    #expect(result == .horizontal)
+}
+
+@Test func earlyWobbleDoesNotLockTheWrongAxis() {
+    var lock = AxisLock(lockDistance: 8)
+    #expect(lock.feed(dx: 9, dy: -6) == nil)       // sideways wobble at the start of an upward swipe
+    #expect(lock.feed(dx: 0, dy: -20) == .vertical)
+}
