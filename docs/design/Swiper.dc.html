@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#e4e1da;font-family:'Inter',system-ui,sans-serif;color:#1e3354;-webkit-font-smoothing:antialiased}
+a{color:#1e3354;text-decoration:underline;text-underline-offset:2px}
+a:hover{color:#30507f}
+</style>
+</helmet>
+
+<section style="padding:56px 64px 8px;display:flex;flex-direction:column;gap:28px">
+  <div style="display:flex;flex-direction:column;gap:6px">
+    <div style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:#5d6470">Swiper · Turn 3</div>
+    <div style="font-size:28px;font-weight:600">Settings · low click delay</div>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:48px;align-items:flex-start">
+    <!-- 3a Low click delay -->
+    <div id="3a" style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#5d6470"><span style="background:#1e3354;color:#f8f6f0;font-size:11px;font-weight:600;padding:2px 7px;border-radius:5px">3a</span>Low click delay warning · alternative to <a href="#2a">2a</a></div>
+      <div style="width:480px;border-radius:12px;overflow:hidden;background:#f8f6f0;border:1px solid rgba(30,51,84,0.18);box-shadow:0 10px 30px rgba(30,40,60,0.12)">
+        <div style="background:#1e3354;color:#f8f6f0;padding:12px 16px 20px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;gap:8px"><span style="width:12px;height:12px;border-radius:50%;background:#ee6a5f"></span><span style="width:12px;height:12px;border-radius:50%;background:#f5bf4f"></span><span style="width:12px;height:12px;border-radius:50%;background:#62c554"></span></div>
+          <div style="display:flex;align-items:flex-end;justify-content:space-between;padding:0 6px">
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <div style="font-size:20px;font-weight:600">Swiper Settings</div>
+              <div style="font-size:12.5px;color:#cfd7e3">Swipe between desktops with a two-button mouse.</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:7px;font-size:12.5px;color:#dfe5ee"><span style="width:8px;height:8px;border-radius:50%;background:#5cc98a"></span>Active</div>
+          </div>
+        </div>
+        <div style="padding:20px 22px 22px;display:flex;flex-direction:column;gap:18px">
+
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="font-size:12px;font-weight:600;color:#5d6470;padding-left:4px">Permission</div>
+            <div style="background:#fffdf8;border:1px solid #e6e1d6;border-radius:10px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:16px">
+              <div style="display:flex;flex-direction:column;gap:3px">
+                <div style="font-size:13.5px;font-weight:500">Accessibility</div>
+                <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#2f7044"><span style="width:7px;height:7px;border-radius:50%;background:#3fae6a"></span>Granted</div>
+              </div>
+              <div style="font-size:12.5px;padding:5px 12px;border-radius:7px;border:1px solid #d6d0c3;background:#f8f6f0">Open System Settings</div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="font-size:12px;font-weight:600;color:#5d6470;padding-left:4px">Gesture</div>
+            <div style="background:#fffdf8;border:1px solid #e6e1d6;border-radius:10px;display:flex;flex-direction:column">
+              <div style="padding:14px 16px;display:flex;flex-direction:column;gap:8px">
+                <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:13.5px;font-weight:500">Swipe sensitivity</span><span style="font-size:12.5px;font-weight:600">{{ sensLabel }}</span></div>
+                <input type="range" min="1" max="5" step="1" value="{{ sens }}" onChange="{{ onSens }}" style="width:100%;accent-color:#1e3354;margin:0">
+                <div style="display:flex;justify-content:space-between;font-size:11.5px;color:#5d6470"><span>Slower</span><span>Faster</span></div>
+              </div>
+              <div style="height:1px;background:#eee9df;margin:0 16px"></div>
+              <div style="padding:14px 16px;display:flex;flex-direction:column;gap:8px">
+                <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:13.5px;font-weight:500">Click delay</span><span style="font-size:12.5px;font-weight:600;color:{{ delayCColor }}">{{ delayC }} ms</span></div>
+                <input type="range" min="30" max="50" step="1" value="{{ delayC }}" onChange="{{ onDelayC }}" style="width:100%;accent-color:{{ delayCAccent }};margin:0">
+                <div style="display:flex;justify-content:space-between;font-size:11.5px;color:#5d6470"><span>30 ms</span><span>50 ms</span></div>
+                <div style="font-size:12px;color:#5d6470;line-height:1.5">How long a click waits to see if you are starting a swipe.</div>
+                <sc-if value="{{ delayLow }}" hint-placeholder-val="{{ true }}">
+                  <div style="display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:8px;background:#fbf0d9;border:1px solid #ecd29b">
+                    <span style="width:7px;height:7px;border-radius:50%;flex:none;background:#d99a2b;margin-top:5px"></span>
+                    <div style="display:flex;flex-direction:column;gap:6px">
+                      <div style="font-size:12.5px;font-weight:600;color:#6e4a0c">A short delay can cause mistakes</div>
+                      <div style="font-size:12px;line-height:1.5;color:#6e4a0c;text-wrap:pretty">Swipes may feel jittery, and a swipe may register as an accidental click. 40 ms works well for most mice.</div>
+                      <div style="display:flex"><div onClick="{{ resetDelay }}" style="font-size:12px;font-weight:500;padding:4px 10px;border-radius:6px;border:1px solid #ddc48c;background:#fffaf0;color:#6e4a0c;cursor:default" style-hover="background:#fff">Reset to 40 ms</div></div>
+                    </div>
+                  </div>
+                </sc-if>
+              </div>
+              <div style="height:1px;background:#eee9df;margin:0 16px"></div>
+              <div style="padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:16px">
+                <div style="display:flex;flex-direction:column;gap:3px">
+                  <div style="font-size:13.5px;font-weight:500">Swipe direction</div>
+                  <div style="font-size:12px;color:#5d6470">Follows your system's natural scrolling setting</div>
+                </div>
+                <a href="#" style="font-size:12.5px;white-space:nowrap">System Settings</a>
+              </div>
+            </div>
+          </div>
+
+          <div style="background:#fffdf8;border:1px solid #e6e1d6;border-radius:10px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between">
+            <span style="font-size:13.5px;font-weight:500">Launch at login</span>
+            <div style="width:34px;height:20px;border-radius:10px;background:#1e3354;position:relative"><div style="position:absolute;top:2px;left:16px;width:16px;height:16px;border-radius:50%;background:#fff"></div></div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="font-size:12px;font-weight:600;color:#5d6470;padding-left:4px">Compatibility</div>
+            <div style="background:#fffdf8;border:1px solid #e6e1d6;border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:grid;grid-template-columns:120px 1fr;row-gap:8px;font-size:12.5px">
+                <span style="color:#5d6470">Tested on</span><span>macOS 14 Sonoma, 15 Sequoia, 26 Tahoe</span>
+                <span style="color:#5d6470">Your Mac</span><span style="font-weight:600">{{ version }}</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;font-size:12.5px;background:{{ noteBg }};color:{{ noteFg }}"><span style="width:7px;height:7px;border-radius:50%;flex:none;background:{{ noteDot }}"></span>{{ noteText }}</div>
+            </div>
+          </div>
+
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#5d6470;padding:0 4px">
+            <span>Swiper 1.0.2</span><a href="#">View on GitHub</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section style="padding:56px 64px 24px;display:flex;flex-direction:column;gap:28px">
+  <div style="display:flex;flex-direction:column;gap:6px">
+    <div style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:#5d6470">Swiper · Surface 1</div>
+    <div style="font-size:28px;font-weight:600">Menu bar popover</div>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start">
+
+    <!-- 1a OK -->
+    <div id="1a" style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#5d6470"><span style="background:#1e3354;color:#f8f6f0;font-size:11px;font-weight:600;padding:2px 7px;border-radius:5px">1a</span>OK · Active</div>
+      <div style="width:320px;height:26px;border-radius:7px;background:rgba(255,255,255,0.55);display:flex;align-items:center;justify-content:flex-end;gap:14px;padding:0 12px;box-sizing:border-box;font-size:12px;color:#2a2f38">
+        <div style="width:22px;height:18px;border-radius:5px;background:rgba(30,51,84,0.16);display:flex;align-items:center;justify-content:center"><div style="width:12px;height:8px;border-radius:4px;border:1.5px solid #1e3354"></div></div>
+        <span>Thu 5 Nov 10:42</span>
+      </div>
+      <div style="width:300px;margin-left:12px;border-radius:14px;overflow:hidden;background:#f8f6f0;border:1px solid rgba(30,51,84,0.14);box-shadow:0 8px 24px rgba(30,40,60,0.12)">
+        <div style="background:#1e3354;color:#f8f6f0;padding:16px 18px 14px;display:flex;flex-direction:column;gap:6px">
+          <div style="font-size:17px;font-weight:600">Swiper</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:#dfe5ee"><span style="width:8px;height:8px;border-radius:50%;background:#5cc98a"></span>Active</div>
+        </div>
+        <div style="padding:8px 8px 6px;display:flex;flex-direction:column">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 10px;font-size:13.5px">
+            <span>Swiping</span>
+            <div style="width:34px;height:20px;border-radius:10px;background:#1e3354;position:relative"><div style="position:absolute;top:2px;left:16px;width:16px;height:16px;border-radius:50%;background:#fff"></div></div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 10px;font-size:13.5px">
+            <span>Launch at login</span>
+            <div style="width:34px;height:20px;border-radius:10px;background:#1e3354;position:relative"><div style="position:absolute;top:2px;left:16px;width:16px;height:16px;border-radius:50%;background:#fff"></div></div>
+          </div>
+          <div style="font-size:12px;color:#5d6470;padding:2px 10px 10px;line-height:1.5;text-wrap:pretty">Hold both mouse buttons and move to switch desktops. Move up for Mission Control.</div>
+          <div style="height:1px;background:#e6e1d6;margin:2px 8px"></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 10px;font-size:13.5px;border-radius:7px" style-hover="background:#efebe2">
+            <span>Settings…</span><span style="font-size:12px;color:#5d6470">⌘,</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 10px;font-size:13.5px;border-radius:7px" style-hover="background:#efebe2">
+            <span>Quit Swiper</span><span style="font-size:12px;color:#5d6470">⌘Q</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1b Empty / Paused -->
+    <div id="1b" style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#5d6470"><span style="background:#1e3354;color:#f8f6f0;font-size:11px;font-weight:600;padding:2px 7px;border-radius:5px">1b</span>Empty · Paused</div>
+      <div style="width:320px;height:26px;border-radius:7px;background:rgba(255,255,255,0.55);display:flex;align-items:center;justify-content:flex-end;gap:14px;padding:0 12px;box-sizing:border-box;font-size:12px;color:#2a2f38">
+        <div style="width:22px;height:18px;border-radius:5px;background:rgba(30,51,84,0.16);display:flex;align-items:center;justify-content:center"><div style="width:12px;height:8px;border-radius:4px;border:1.5px dashed #6b7380"></div></div>
+        <span>Thu 5 Nov 10:42</span>
+      </div>
+      <div style="width:300px;margin-left:12px;border-radius:14px;overflow:hidden;background:#f8f6f0;border:1px solid rgba(30,51,84,0.14);box-shadow:0 8px 24px rgba(30,40,60,0.12)">
+        <div style="background:#1e3354;color:#f8f6f0;padding:16px 18px 14px;display:flex;flex-direction:column;gap:6px">
+          <div style="font-size:17px;font-weight:600">Swiper</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:#dfe5ee"><span style="width:8px;height:8px;border-radius:50%;background:#a7b0bd"></span>Paused</div>
+        </div>
+        <div style="padding:8px 8px 6px;display:flex;flex-direction:column">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 10px;font-size:13.5px">
+            <span>Swiping</span>
+            <div style="width:34px;height:20px;border-radius:10px;background:#d9d4c8;position:relative"><div style="position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff"></div></div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 10px;font-size:13.5px">
+            <span>Launch at login</span>
+            <div style="width:34px;height:20px;border-radius:10px;background:#d9d4c8;position:relative"><div style="position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff"></div></div>
+          </div>
+          <div style="font-size:12px;color:#5d6470;padding:2px 10px 10px;line-height:1.5;text-wrap:pretty">Swiping is off. Your mouse buttons work as usual.</div>
+          <div style="height:1px;background:#e6e1d6;margin:2px 8px"></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 10px;font-size:13.5px;border-radius:7px" style-hover="background:#efebe2">
+            <span>Settings…</span><span style="font-size:12px;color:#5d6470">⌘,</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 10px;font-size:13.5px;border-radius:7px" style-hover="background:#efebe2">
+            <span>Quit Swiper</span><span style="font-size:12px;color:#5d6470">⌘Q</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1c Warning -->
+    <div id="1c" style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#5d6470"><span style="background:#1e3354;color:#f8f6f0;font-size:11px;font-weight:600;padding:2px 7px;border-radius:5px">1c</span>Warning · Needs permission</div>
+      <div style="width:320px;height:26px;border-radius:7px;background:rgba(255,255,255,0.55);display:flex;align-items:center;justify-content:flex-end;gap:14px;padding:0 12px;box-sizing:border-box;font-size:12px;color:#2a2f38">
+        <div style="width:22px;height:18px;border-radius:5px;background:rgba(30,51,84,0.16);display:flex;align-items:center;justify-content:center;position:relative"><div style="width:12px;height:8px;border-radius:4px;border:1.5px solid #1e3354"></div><div style="position:absolute;top:1px;right:1px;width:6px;height:6px;border-radius:50%;background:#d99a2b"></div></div>
+        <span>Thu 5 Nov 10:42</span>
+      </div>
+      <div style="width:300px;margin-left:12px;border-radius:14px;overflow:hidden;background:#f8f6f0;border:1px solid rgba(30,51,84,0.14);box-shadow:0 8px 24px rgba(30,40,60,0.12)">
+        <div style="background:#1e3354;color:#f8f6f0;padding:16px 18px 14px;display:flex;flex-direction:column;gap:6px">
+          <div style="font-size:17px;font-weight:600">Swiper</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:#dfe5ee"><span style="width:8px;height:8px;border-radius:50%;background:#f0b84a"></span>Needs permission</div>
+        </div>
+        <div style="margin:12px 12px 4px;padding:12px 14px;border-radius:10px;background:#fbf0d9;border:1px solid #ecd29b;display:flex;flex-direction:column;gap:8px">
+          <div style="font-size:13.5px;font-weight:600;color:#6e4a0c">Accessibility permission needed</div>
+          <div style="font-size:12px;line-height:1.5;color:#6e4a0c;text-wrap:pretty">Swiper needs it to see when both mouse buttons are held.</div>
+          <div style="display:flex"><div style="background:#1e3354;color:#f8f6f0;font-size:12.5px;font-weight:500;padding:6px 12px;border-radius:7px;cursor:default" style-hover="background:#2a4570">Open System Settings</div></div>
+        </div>
+        <div style="padding:4px 8px 6px;display:flex;flex-direction:column">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 10px;font-size:13.5px;color:#9a9ea6">
+            <span>Swiping</span>
+            <div style="width:34px;height:20px;border-radius:10px;background:#e4e0d6;position:relative"><div style="position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#f8f6f0"></div></div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 10px;font-size:13.5px">
+            <span>Launch at login</span>
+            <div style="width:34px;height:20px;border-radius:10px;background:#1e3354;position:relative"><div style="position:absolute;top:2px;left:16px;width:16px;height:16px;border-radius:50%;background:#fff"></div></div>
+          </div>
+          <div style="height:1px;background:#e6e1d6;margin:2px 8px"></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 10px;font-size:13.5px;border-radius:7px" style-hover="background:#efebe2">
+            <span>Settings…</span><span style="font-size:12px;color:#5d6470">⌘,</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 10px;font-size:13.5px;border-radius:7px" style-hover="background:#efebe2">
+            <span>Quit Swiper</span><span style="font-size:12px;color:#5d6470">⌘Q</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1d Error -->
+    <div id="1d" style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#5d6470"><span style="background:#1e3354;color:#f8f6f0;font-size:11px;font-weight:600;padding:2px 7px;border-radius:5px">1d</span>Error · Gesture not working</div>
+      <div style="width:320px;height:26px;border-radius:7px;background:rgba(255,255,255,0.55);display:flex;align-items:center;justify-content:flex-end;gap:14px;padding:0 12px;box-sizing:border-box;font-size:12px;color:#2a2f38">
+        <div style="width:22px;height:18px;border-radius:5px;background:rgba(30,51,84,0.16);display:flex;align-items:center;justify-content:center;position:relative"><div style="width:12px;height:8px;border-radius:4px;border:1.5px solid #1e3354"></div><div style="position:absolute;top:1px;right:1px;width:6px;height:6px;border-radius:50%;background:#c9574a"></div></div>
+        <span>Thu 5 Nov 10:42</span>
+      </div>
+      <div style="width:300px;margin-left:12px;border-radius:14px;overflow:hidden;background:#f8f6f0;border:1px solid rgba(30,51,84,0.14);box-shadow:0 8px 24px rgba(30,40,60,0.12)">
+        <div style="background:#1e3354;color:#f8f6f0;padding:16px 18px 14px;display:flex;flex-direction:column;gap:6px">
+          <div style="font-size:17px;font-weight:600">Swiper</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:#dfe5ee"><span style="width:8px;height:8px;border-radius:50%;background:#ef8577"></span>Gesture not working</div>
+        </div>
+        <div style="margin:12px 12px 4px;padding:12px 14px;border-radius:10px;background:#f9e4df;border:1px solid #e9b7ad;display:flex;flex-direction:column;gap:8px">
+          <div style="font-size:13.5px;font-weight:600;color:#7f2a1f">Swipe isn't working on this macOS version</div>
+          <div style="font-size:12px;line-height:1.5;color:#7f2a1f;text-wrap:pretty">macOS 27.0 hasn't been tested yet. Clicks still work normally. <a href="#" style="color:#7f2a1f;font-weight:600">Learn more</a></div>
+        </div>
+        <div style="padding:4px 8px 6px;display:flex;flex-direction:column">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 10px;font-size:13.5px">
+            <span>Swiping</span>
+            <div style="width:34px;height:20px;border-radius:10px;background:#1e3354;position:relative"><div style="position:absolute;top:2px;left:16px;width:16px;height:16px;border-radius:50%;background:#fff"></div></div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 10px;font-size:13.5px">
+            <span>Launch at login</span>
+            <div style="width:34px;height:20px;border-radius:10px;background:#1e3354;position:relative"><div style="position:absolute;top:2px;left:16px;width:16px;height:16px;border-radius:50%;background:#fff"></div></div>
+          </div>
+          <div style="height:1px;background:#e6e1d6;margin:2px 8px"></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 10px;font-size:13.5px;border-radius:7px" style-hover="background:#efebe2">
+            <span>Settings…</span><span style="font-size:12px;color:#5d6470">⌘,</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 10px;font-size:13.5px;border-radius:7px" style-hover="background:#efebe2">
+            <span>Quit Swiper</span><span style="font-size:12px;color:#5d6470">⌘Q</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section style="padding:40px 64px 72px;display:flex;flex-direction:column;gap:28px">
+  <div style="display:flex;flex-direction:column;gap:6px">
+    <div style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:#5d6470">Swiper · Surface 2</div>
+    <div style="font-size:28px;font-weight:600">Settings window</div>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:48px;align-items:flex-start">
+
+    <!-- 2a Normal -->
+    <div id="2a" style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#5d6470"><span style="background:#1e3354;color:#f8f6f0;font-size:11px;font-weight:600;padding:2px 7px;border-radius:5px">2a</span>Normal</div>
+      <div style="width:480px;border-radius:12px;overflow:hidden;background:#f8f6f0;border:1px solid rgba(30,51,84,0.18);box-shadow:0 10px 30px rgba(30,40,60,0.12)">
+        <div style="background:#1e3354;color:#f8f6f0;padding:12px 16px 20px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;gap:8px"><span style="width:12px;height:12px;border-radius:50%;background:#ee6a5f"></span><span style="width:12px;height:12px;border-radius:50%;background:#f5bf4f"></span><span style="width:12px;height:12px;border-radius:50%;background:#62c554"></span></div>
+          <div style="display:flex;align-items:flex-end;justify-content:space-between;padding:0 6px">
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <div style="font-size:20px;font-weight:600">Swiper Settings</div>
+              <div style="font-size:12.5px;color:#cfd7e3">Swipe between desktops with a two-button mouse.</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:7px;font-size:12.5px;color:#dfe5ee"><span style="width:8px;height:8px;border-radius:50%;background:#5cc98a"></span>Active</div>
+          </div>
+        </div>
+        <div style="padding:20px 22px 22px;display:flex;flex-direction:column;gap:18px">
+
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="font-size:12px;font-weight:600;color:#5d6470;padding-left:4px">Permission</div>
+            <div style="background:#fffdf8;border:1px solid #e6e1d6;border-radius:10px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:16px">
+              <div style="display:flex;flex-direction:column;gap:3px">
+                <div style="font-size:13.5px;font-weight:500">Accessibility</div>
+                <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#2f7044"><span style="width:7px;height:7px;border-radius:50%;background:#3fae6a"></span>Granted</div>
+              </div>
+              <div style="font-size:12.5px;padding:5px 12px;border-radius:7px;border:1px solid #d6d0c3;background:#f8f6f0">Open System Settings</div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="font-size:12px;font-weight:600;color:#5d6470;padding-left:4px">Gesture</div>
+            <div style="background:#fffdf8;border:1px solid #e6e1d6;border-radius:10px;display:flex;flex-direction:column">
+              <div style="padding:14px 16px;display:flex;flex-direction:column;gap:8px">
+                <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:13.5px;font-weight:500">Swipe sensitivity</span><span style="font-size:12.5px;font-weight:600">{{ sensLabel }}</span></div>
+                <input type="range" min="1" max="5" step="1" value="{{ sens }}" onChange="{{ onSens }}" style="width:100%;accent-color:#1e3354;margin:0">
+                <div style="display:flex;justify-content:space-between;font-size:11.5px;color:#5d6470"><span>Slower</span><span>Faster</span></div>
+              </div>
+              <div style="height:1px;background:#eee9df;margin:0 16px"></div>
+              <div style="padding:14px 16px;display:flex;flex-direction:column;gap:8px">
+                <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:13.5px;font-weight:500">Click delay</span><span style="font-size:12.5px;font-weight:600">{{ delay }} ms</span></div>
+                <input type="range" min="30" max="50" step="1" value="{{ delay }}" onChange="{{ onDelay }}" style="width:100%;accent-color:#1e3354;margin:0">
+                <div style="display:flex;justify-content:space-between;font-size:11.5px;color:#5d6470"><span>30 ms</span><span>50 ms</span></div>
+                <div style="font-size:12px;color:#5d6470;line-height:1.5">How long a click waits to see if you are starting a swipe.</div>
+              </div>
+              <div style="height:1px;background:#eee9df;margin:0 16px"></div>
+              <div style="padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:16px">
+                <div style="display:flex;flex-direction:column;gap:3px">
+                  <div style="font-size:13.5px;font-weight:500">Swipe direction</div>
+                  <div style="font-size:12px;color:#5d6470">Follows your system's natural scrolling setting</div>
+                </div>
+                <a href="#" style="font-size:12.5px;white-space:nowrap">System Settings</a>
+              </div>
+            </div>
+          </div>
+
+          <div style="background:#fffdf8;border:1px solid #e6e1d6;border-radius:10px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between">
+            <span style="font-size:13.5px;font-weight:500">Launch at login</span>
+            <div style="width:34px;height:20px;border-radius:10px;background:#1e3354;position:relative"><div style="position:absolute;top:2px;left:16px;width:16px;height:16px;border-radius:50%;background:#fff"></div></div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="font-size:12px;font-weight:600;color:#5d6470;padding-left:4px">Compatibility</div>
+            <div style="background:#fffdf8;border:1px solid #e6e1d6;border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:grid;grid-template-columns:120px 1fr;row-gap:8px;font-size:12.5px">
+                <span style="color:#5d6470">Tested on</span><span>macOS 14 Sonoma, 15 Sequoia, 26 Tahoe</span>
+                <span style="color:#5d6470">Your Mac</span><span style="font-weight:600">{{ version }}</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;font-size:12.5px;background:{{ noteBg }};color:{{ noteFg }}"><span style="width:7px;height:7px;border-radius:50%;flex:none;background:{{ noteDot }}"></span>{{ noteText }}</div>
+            </div>
+          </div>
+
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#5d6470;padding:0 4px">
+            <span>Swiper 1.0.2</span><a href="#">View on GitHub</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2b Permission missing -->
+    <div id="2b" style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#5d6470"><span style="background:#1e3354;color:#f8f6f0;font-size:11px;font-weight:600;padding:2px 7px;border-radius:5px">2b</span>Permission missing</div>
+      <div style="width:480px;border-radius:12px;overflow:hidden;background:#f8f6f0;border:1px solid rgba(30,51,84,0.18);box-shadow:0 10px 30px rgba(30,40,60,0.12)">
+        <div style="background:#1e3354;color:#f8f6f0;padding:12px 16px 20px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;gap:8px"><span style="width:12px;height:12px;border-radius:50%;background:#ee6a5f"></span><span style="width:12px;height:12px;border-radius:50%;background:#f5bf4f"></span><span style="width:12px;height:12px;border-radius:50%;background:#62c554"></span></div>
+          <div style="display:flex;align-items:flex-end;justify-content:space-between;padding:0 6px">
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <div style="font-size:20px;font-weight:600">Swiper Settings</div>
+              <div style="font-size:12.5px;color:#cfd7e3">Swipe between desktops with a two-button mouse.</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:7px;font-size:12.5px;color:#dfe5ee"><span style="width:8px;height:8px;border-radius:50%;background:#f0b84a"></span>Needs permission</div>
+          </div>
+        </div>
+        <div style="padding:20px 22px 22px;display:flex;flex-direction:column;gap:18px">
+
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="font-size:12px;font-weight:600;color:#5d6470;padding-left:4px">Permission</div>
+            <div style="background:#fbf0d9;border:1px solid #ecd29b;border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+                <div style="display:flex;flex-direction:column;gap:3px">
+                  <div style="font-size:13.5px;font-weight:500;color:#1e3354">Accessibility</div>
+                  <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#6e4a0c;font-weight:600"><span style="width:7px;height:7px;border-radius:50%;background:#d99a2b"></span>Not granted</div>
+                </div>
+                <div style="background:#1e3354;color:#f8f6f0;font-size:12.5px;font-weight:500;padding:6px 12px;border-radius:7px" style-hover="background:#2a4570">Open System Settings</div>
+              </div>
+              <div style="font-size:12px;line-height:1.55;color:#6e4a0c;text-wrap:pretty">In Privacy &amp; Security → Accessibility, switch on Swiper. This window updates on its own once it's allowed.</div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px;opacity:0.5">
+            <div style="font-size:12px;font-weight:600;color:#5d6470;padding-left:4px">Gesture · available after permission is granted</div>
+            <div style="background:#fffdf8;border:1px solid #e6e1d6;border-radius:10px;display:flex;flex-direction:column">
+              <div style="padding:14px 16px;display:flex;flex-direction:column;gap:8px">
+                <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:13.5px;font-weight:500">Swipe sensitivity</span><span style="font-size:12.5px;font-weight:600">{{ sensLabel }}</span></div>
+                <input type="range" min="1" max="5" step="1" value="{{ sens }}" disabled="{{ true }}" style="width:100%;accent-color:#1e3354;margin:0">
+                <div style="display:flex;justify-content:space-between;font-size:11.5px;color:#5d6470"><span>Slower</span><span>Faster</span></div>
+              </div>
+              <div style="height:1px;background:#eee9df;margin:0 16px"></div>
+              <div style="padding:14px 16px;display:flex;flex-direction:column;gap:8px">
+                <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:13.5px;font-weight:500">Click delay</span><span style="font-size:12.5px;font-weight:600">{{ delay }} ms</span></div>
+                <input type="range" min="30" max="50" step="1" value="{{ delay }}" disabled="{{ true }}" style="width:100%;accent-color:#1e3354;margin:0">
+                <div style="display:flex;justify-content:space-between;font-size:11.5px;color:#5d6470"><span>30 ms</span><span>50 ms</span></div>
+                <div style="font-size:12px;color:#5d6470;line-height:1.5">How long a click waits to see if you are starting a swipe.</div>
+              </div>
+              <div style="height:1px;background:#eee9df;margin:0 16px"></div>
+              <div style="padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:16px">
+                <div style="display:flex;flex-direction:column;gap:3px">
+                  <div style="font-size:13.5px;font-weight:500">Swipe direction</div>
+                  <div style="font-size:12px;color:#5d6470">Follows your system's natural scrolling setting</div>
+                </div>
+                <a href="#" style="font-size:12.5px;white-space:nowrap">System Settings</a>
+              </div>
+            </div>
+          </div>
+
+          <div style="background:#fffdf8;border:1px solid #e6e1d6;border-radius:10px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between">
+            <span style="font-size:13.5px;font-weight:500">Launch at login</span>
+            <div style="width:34px;height:20px;border-radius:10px;background:#1e3354;position:relative"><div style="position:absolute;top:2px;left:16px;width:16px;height:16px;border-radius:50%;background:#fff"></div></div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="font-size:12px;font-weight:600;color:#5d6470;padding-left:4px">Compatibility</div>
+            <div style="background:#fffdf8;border:1px solid #e6e1d6;border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:grid;grid-template-columns:120px 1fr;row-gap:8px;font-size:12.5px">
+                <span style="color:#5d6470">Tested on</span><span>macOS 14 Sonoma, 15 Sequoia, 26 Tahoe</span>
+                <span style="color:#5d6470">Your Mac</span><span style="font-weight:600">{{ version }}</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;font-size:12.5px;background:{{ noteBg }};color:{{ noteFg }}"><span style="width:7px;height:7px;border-radius:50%;flex:none;background:{{ noteDot }}"></span>{{ noteText }}</div>
+            </div>
+          </div>
+
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#5d6470;padding:0 4px">
+            <span>Swiper 1.0.2</span><a href="#">View on GitHub</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;macosVersion&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;macOS 14.7 Sonoma&quot;,&quot;macOS 15.6 Sequoia&quot;,&quot;macOS 26.1 Tahoe&quot;,&quot;macOS 27.0 beta&quot;],&quot;default&quot;:&quot;macOS 26.1 Tahoe&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { sens: 3, delay: 40, delayC: 30 };
+  renderVals() {
+    const labels = ['Slower', 'Slow', 'Balanced', 'Fast', 'Faster'];
+    const version = this.props.macosVersion ?? 'macOS 26.1 Tahoe';
+    const ok = !version.includes('27');
+    return {
+      sens: this.state.sens,
+      delay: this.state.delay,
+      sensLabel: labels[this.state.sens - 1],
+      onSens: e => this.setState({ sens: +e.target.value }),
+      onDelay: e => this.setState({ delay: +e.target.value }),
+      version,
+      delayC: this.state.delayC,
+      delayLow: this.state.delayC <= 33,
+      delayCColor: this.state.delayC <= 33 ? '#8a5a0e' : '#1e3354',
+      delayCAccent: this.state.delayC <= 33 ? '#d99a2b' : '#1e3354',
+      onDelayC: e => this.setState({ delayC: +e.target.value }),
+      resetDelay: () => this.setState({ delayC: 40 }),
+      noteText: ok ? 'Supported. Swiping should work on this Mac.' : 'Not tested yet. Swiping may not work until an update.',
+      noteBg: ok ? '#e3f1e6' : '#fbf0d9',
+      noteFg: ok ? '#245c37' : '#6e4a0c',
+      noteDot: ok ? '#3fae6a' : '#d99a2b',
+    };
+  }
+}
+</script>
+</body>
+</html>

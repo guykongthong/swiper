@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#e4e1da;font-family:'Lora',serif;color:#1e3354;-webkit-font-smoothing:antialiased}
+a{color:#1e3354;text-underline-offset:2px}
+a:hover{color:#30507f}
+</style>
+</helmet>
+<section style="padding:56px 64px 72px;display:flex;flex-direction:column;gap:28px">
+  <div style="display:flex;flex-direction:column;gap:6px">
+    <div style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:#5d6470">Swiper · Logo &amp; icons</div>
+    <div style="font-size:28px;font-weight:600">App icon and menu bar icon</div>
+    <div style="font-size:14px;color:#5d6470;max-width:640px;line-height:1.5">Three directions. Each card pairs the 1024 app icon with its menu bar template glyph. Small sizes are shown at true pixel size.</div>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start">
+    <sc-for list="{{ variants }}" as="v" hint-placeholder-count="3">
+      <div id="{{ v.id }}" style="width:600px;background:#f8f6f0;border:1px solid rgba(30,51,84,0.14);border-radius:16px;padding:28px;box-sizing:border-box;display:flex;flex-direction:column;gap:24px">
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;align-items:center;gap:10px"><span style="background:#1e3354;color:#f8f6f0;font-size:11px;font-weight:600;padding:2px 7px;border-radius:5px">{{ v.id }}</span><span style="font-size:19px;font-weight:600">{{ v.name }}</span></div>
+          <div style="font-size:13px;color:#5d6470;line-height:1.5;text-wrap:pretty">{{ v.desc }}</div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:10px;align-items:center;background:#eeebe3;border-radius:12px;padding:20px 0 14px">
+          {{ v.i400 }}
+          <div style="font-size:11.5px;color:#5d6470">1024 × 1024 · shown at 40%</div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px">
+          <div style="background:#f1efea;border-radius:10px;padding:16px;display:flex;align-items:flex-end;justify-content:center;gap:22px">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px">{{ v.i128 }}<span style="font-size:11px;color:#5d6470">128</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px">{{ v.i32 }}<span style="font-size:11px;color:#5d6470">32</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px">{{ v.i16 }}<span style="font-size:11px;color:#5d6470">16</span></div>
+          </div>
+          <div style="background:#2b2c30;border-radius:10px;padding:16px;display:flex;align-items:flex-end;justify-content:center;gap:22px">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px">{{ v.i128 }}<span style="font-size:11px;color:#b9bcc4">128</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px">{{ v.i32 }}<span style="font-size:11px;color:#b9bcc4">32</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px">{{ v.i16 }}<span style="font-size:11px;color:#b9bcc4">16</span></div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="font-size:13px;font-weight:600">Menu bar · 18 pt template</div>
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="font-size:11.5px;color:#5d6470">Light · 1x</div>
+              <div style="display:flex;gap:10px;align-items:center;height:26px;padding:0 10px;background:#e9e8e5;border-radius:6px;color:#1d1d1f;width:fit-content">
+                <div style="width:28px;height:22px;display:flex;align-items:center;justify-content:center">{{ v.g18 }}</div>
+                <div style="width:28px;height:22px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.12);border-radius:5px">{{ v.g18 }}</div>
+                <div style="width:28px;height:22px;display:flex;align-items:center;justify-content:center">{{ v.d18 }}</div>
+              </div>
+              <div style="font-size:11.5px;color:#5d6470">Light · 2x</div>
+              <div style="display:flex;gap:12px;align-items:center;height:52px;padding:0 12px;background:#e9e8e5;border-radius:12px;color:#1d1d1f;width:fit-content">
+                <div style="width:56px;height:44px;display:flex;align-items:center;justify-content:center">{{ v.g36 }}</div>
+                <div style="width:56px;height:44px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.12);border-radius:10px">{{ v.g36 }}</div>
+                <div style="width:56px;height:44px;display:flex;align-items:center;justify-content:center">{{ v.d36 }}</div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="font-size:11.5px;color:#5d6470">Dark · 1x</div>
+              <div style="display:flex;gap:10px;align-items:center;height:26px;padding:0 10px;background:#232326;border-radius:6px;color:#f2f2f2;width:fit-content">
+                <div style="width:28px;height:22px;display:flex;align-items:center;justify-content:center">{{ v.g18 }}</div>
+                <div style="width:28px;height:22px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.22);border-radius:5px">{{ v.g18 }}</div>
+                <div style="width:28px;height:22px;display:flex;align-items:center;justify-content:center">{{ v.d18 }}</div>
+              </div>
+              <div style="font-size:11.5px;color:#5d6470">Dark · 2x</div>
+              <div style="display:flex;gap:12px;align-items:center;height:52px;padding:0 12px;background:#232326;border-radius:12px;color:#f2f2f2;width:fit-content">
+                <div style="width:56px;height:44px;display:flex;align-items:center;justify-content:center">{{ v.g36 }}</div>
+                <div style="width:56px;height:44px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.22);border-radius:10px">{{ v.g36 }}</div>
+                <div style="width:56px;height:44px;display:flex;align-items:center;justify-content:center">{{ v.d36 }}</div>
+              </div>
+            </div>
+          </div>
+          <div style="font-size:11.5px;color:#5d6470">Each strip: normal · active (highlighted) · paused</div>
+        </div>
+
+        <div style="display:flex;flex-wrap:wrap;gap:8px;padding-top:4px;border-top:1px solid #e6e1d6;padding-top:18px">
+          <div onClick="{{ v.dlIcon }}" style="background:#1e3354;color:#f8f6f0;font-size:12.5px;font-weight:500;padding:7px 12px;border-radius:7px;cursor:pointer" style-hover="background:#2a4570">App icon .svg</div>
+          <div onClick="{{ v.dlMenu }}" style="font-size:12.5px;padding:7px 12px;border-radius:7px;border:1px solid #d6d0c3;background:#fffdf8;cursor:pointer" style-hover="background:#fff">Menu bar .svg</div>
+          <div onClick="{{ v.dlMenuOff }}" style="font-size:12.5px;padding:7px 12px;border-radius:7px;border:1px solid #d6d0c3;background:#fffdf8;cursor:pointer" style-hover="background:#fff">Menu bar paused .svg</div>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const NAVY_T = '#26446f', NAVY_B = '#1a2e4d', P = '#f6f2e9';
+const marks = {
+  '1a': `<rect x="318" y="290" width="180" height="260" rx="44"/><rect x="526" y="290" width="180" height="260" rx="44"/>
+<g fill="none" stroke="${P}" stroke-width="44" stroke-linecap="round" stroke-linejoin="round"><line x1="318" y1="690" x2="700" y2="690"/><polyline points="638,628 700,690 638,752"/></g>`,
+  '1b': `<g fill="none" stroke="${P}" stroke-width="40" stroke-linecap="round"><line x1="270" y1="446" x2="410" y2="446"/><line x1="210" y1="512" x2="410" y2="512"/><line x1="300" y1="578" x2="410" y2="578"/></g>
+<circle cx="548" cy="512" r="80"/><circle cx="736" cy="512" r="80"/>`,
+  '1c': `<text x="512" y="612" text-anchor="middle" font-family="Lora, Georgia, serif" font-weight="600" font-style="italic" font-size="560">S</text>
+<g fill="none" stroke="${P}" stroke-width="36" stroke-linecap="round" stroke-linejoin="round"><line x1="352" y1="740" x2="666" y2="740"/><line x1="352" y1="740" x2="666" y2="740"/><polyline points="618,692 666,740 618,788"/></g>`,
+};
+const glyphs = {
+  '1a': [`<rect x="3.5" y="2.5" width="5" height="7" rx="1.4" fill="currentColor"/><rect x="9.5" y="2.5" width="5" height="7" rx="1.4" fill="currentColor"/><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="3.5" y1="13.5" x2="14" y2="13.5"/><polyline points="11.8,11.3 14,13.5 11.8,15.7"/></g>`,
+         `<g fill="none" stroke="currentColor" stroke-width="1.1"><rect x="4.05" y="3.05" width="3.9" height="5.9" rx="1"/><rect x="10.05" y="3.05" width="3.9" height="5.9" rx="1"/></g><line x1="3.5" y1="13.5" x2="14" y2="13.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-dasharray="0.1 2.4"/>`],
+  '1b': [`<g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="2.6" y1="6.5" x2="5.2" y2="6.5"/><line x1="1.2" y1="9" x2="5.2" y2="9"/><line x1="3" y1="11.5" x2="5.2" y2="11.5"/></g><circle cx="8.8" cy="9" r="2.5" fill="currentColor"/><circle cx="14.6" cy="9" r="2.5" fill="currentColor"/>`,
+         `<g fill="none" stroke="currentColor" stroke-width="1.1"><circle cx="8.8" cy="9" r="1.95"/><circle cx="14.6" cy="9" r="1.95"/></g>`],
+  '1c': [`<text x="9" y="14.6" text-anchor="middle" font-family="Lora, Georgia, serif" font-weight="600" font-style="italic" font-size="17" fill="currentColor">S</text>`,
+         `<text x="9" y="14.6" text-anchor="middle" font-family="Lora, Georgia, serif" font-weight="600" font-style="italic" font-size="17" fill="none" stroke="currentColor" stroke-width="0.8">S</text>`],
+};
+function appIcon(id, size) {
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 1024 1024">
+<defs><linearGradient id="bg${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${NAVY_T}"/><stop offset="1" stop-color="${NAVY_B}"/></linearGradient>
+<filter id="sh${id}" x="-10%" y="-10%" width="120%" height="125%"><feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#000" flood-opacity="0.22"/></filter></defs>
+<rect x="100" y="100" width="824" height="824" rx="185" fill="url(#bg${id})" filter="url(#sh${id})"/>
+<rect x="101.5" y="101.5" width="821" height="821" rx="183.5" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="3"/>
+<g fill="${P}">${marks[id]}</g></svg>`;
+}
+function menuIcon(id, px, off, color) {
+  let g = glyphs[id][off ? 1 : 0];
+  if (color) g = g.replaceAll('currentColor', color);
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${px}" height="${px}" viewBox="0 0 18 18">${g}</svg>`;
+}
+const el = html => React.createElement('div', { style: { display: 'flex', lineHeight: 0 }, dangerouslySetInnerHTML: { __html: html } });
+function download(name, svg) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([svg], { type: 'image/svg+xml' }));
+  a.download = name; a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+const info = {
+  '1a': ['Buttons + glide', 'The literal reading: left and right mouse buttons held together, with a stroke gliding sideways beneath them.', 'buttons'],
+  '1b': ['Two-point glide', 'More abstract. The two pressed buttons become two dots, with motion lines trailing behind as they slide.', 'glide'],
+  '1c': ['Serif S', 'A Lora italic S with the same glide arrow, tying the icon to the app’s typography.', 'serif-s'],
+};
+class Component extends DCLogic {
+  renderVals() {
+    const variants = Object.keys(info).map(id => {
+      const [name, desc, slug] = info[id];
+      return {
+        id, name, desc,
+        i400: el(appIcon(id, 410)), i128: el(appIcon(id, 128)), i32: el(appIcon(id, 32)), i16: el(appIcon(id, 16)),
+        g18: el(menuIcon(id, 18)), g36: el(menuIcon(id, 36)), d18: el(menuIcon(id, 18, true)), d36: el(menuIcon(id, 36, true)),
+        dlIcon: () => download(`swiper-icon-${slug}-1024.svg`, appIcon(id, 1024)),
+        dlMenu: () => download(`swiper-menubar-${slug}.svg`, menuIcon(id, 18, false, '#000000')),
+        dlMenuOff: () => download(`swiper-menubar-${slug}-paused.svg`, menuIcon(id, 18, true, '#000000')),
+      };
+    });
+    return { variants };
+  }
+}
+</script>
+</body>
+</html>
