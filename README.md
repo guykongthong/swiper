@@ -69,3 +69,7 @@ Notes from building it, kept in the repo:
 ## Reporting problems
 
 Open a GitHub issue with the `defect` label and a severity: `low`, `medium`, `high` or `critical`. Include your macOS version.
+
+## License
+
+[MIT](LICENSE). The bundled Inter font is under the [SIL Open Font License](Resources/Fonts/OFL.txt).
