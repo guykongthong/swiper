@@ -11,7 +11,7 @@ struct SwiperApp: App {
         MenuBarExtra {
             PopoverView(state: state)
         } label: {
-            Image(systemName: state.status == .paused ? "hand.draw" : "hand.draw.fill")
+            Image(nsImage: MenuBarIcon.image(paused: state.status == .paused))
         }
         .menuBarExtraStyle(.window)
 

@@ -196,7 +196,7 @@ struct SettingsView: View {
 
     private var footer: some View {
         HStack {
-            Text("Swiper 0.1.0")
+            Text("Swiper \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "dev")")
             Spacer()
             Link("View on GitHub", destination: URL(string: "https://github.com/guykongthong/swiper")!)
         }.font(Theme.font(12)).foregroundStyle(Theme.muted).padding(.horizontal, 4)
