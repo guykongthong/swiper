@@ -2,7 +2,7 @@
 
 Swipe between macOS desktops with an ordinary mouse. Hold the left and right buttons together and move the mouse: the desktops follow, like the three-finger swipe on a trackpad. Move up for Mission Control.
 
-> Status: early development. The gesture code has not been verified on a real desktop yet (see `docs/adr/0004-synthesized-dock-swipe.md`).
+> Status: early development. The horizontal swipe works on macOS 27.0 (see `docs/adr/0004-synthesized-dock-swipe.md`).
 
 ## Build
 
@@ -17,7 +17,7 @@ The app is unsigned. On first launch, right-click it and choose Open, then grant
 
 ## Tested macOS versions
 
-None verified yet.
+macOS 27.0 (verified by the author on a real swipe). Other versions are untested.
 
 ## Docs
 

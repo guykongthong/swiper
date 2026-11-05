@@ -1,6 +1,6 @@
 # 0004. Synthesized Dock swipe events
 
-Status: accepted (mechanism chosen by the owner), implementation UNVERIFIED
+Status: accepted (mechanism chosen by the owner), verified on macOS 27.0
 Date: 2026-11-05
 
 ## Context
@@ -14,5 +14,9 @@ Post synthesized Dock swipe gesture events (begin, changed, ended) from `DockSwi
 - Not allowed in the Mac App Store.
 - A fallback to Control + arrow (one flick, fixed animation) is possible later and is not in scope.
 
-## Status of the implementation
-`DockSwipePoster` was written without being able to run it against a real desktop. The field numbers and values are best recollection of how open-source tools do it and are unconfirmed. Next step for the owner: hold both buttons and swipe on the real Mac, then correct the constants in the `Fields` enum until the desktop slides. Record what worked here.
+## What we found
+- On macOS 27 the Dock ignores CGEvent value fields. It reads an internal HID event (type DockSwipe, with motion, flavor and progress fields) attached to a type 30 CGEvent. A velocity child event carries the exit speed on end.
+- The event is built through private IOKit and SkyLight functions looked up at runtime, so a missing function disables the gesture softly instead of crashing.
+- Before macOS 27 the Dock read value fields on a pair of CGEvents (types 29 and 30). That path is kept but untested.
+- Verified by the owner on macOS 27.0: the desktops follow the mouse and settle on release.
+- Reference points: open-source Mac Mouse Fix and yabai for the approach, Apple's open-source IOKit headers for field numbers.
