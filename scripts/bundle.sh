@@ -25,5 +25,13 @@ cat > "$APP/Contents/Info.plist" <<PLIST
   <key>ATSApplicationFontsPath</key><string>.</string>
 </dict></plist>
 PLIST
-codesign --force --sign - "$APP"
+# Sign with a stable local certificate if it exists, so the Accessibility permission survives rebuilds.
+# (macOS ties the permission to the signature; an ad hoc signature changes with every build.)
+IDENTITY="${SIGN_IDENTITY:-Swiper Local Signing}"
+if security find-identity -p codesigning | grep -q "$IDENTITY"; then
+  codesign --force --sign "$IDENTITY" "$APP"
+else
+  echo "No '$IDENTITY' certificate found, using an ad hoc signature (permission resets on every rebuild)."
+  codesign --force --sign - "$APP"
+fi
 echo "Built $APP"
