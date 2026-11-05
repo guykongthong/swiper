@@ -21,7 +21,7 @@ macOS 27.0 (verified by the author on a real swipe). Other versions are untested
 
 ## Docs
 
-`docs/superpowers/specs/` design, `docs/superpowers/plans/` plan, `docs/srs/` requirements and use cases, `docs/diagrams/`, `docs/adr/` decisions.
+`docs/srs/` requirements and use cases, `docs/diagrams/` component and sequence diagrams, `docs/adr/` design decisions, `docs/design/` UI mockups.
 
 ## Reporting defects
 
