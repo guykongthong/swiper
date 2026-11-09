@@ -27,6 +27,13 @@ public struct ChordDetector: Sendable {
         var out: [ChordOutput] = []
 
         if case .holding(let b, let since) = state, input.time - since >= window {
+            if case .up(let ub, _) = input, ub == b {
+                // The release arrived after the window but before the tick. Replay press and
+                // release together, in order. Letting the real release through would overtake
+                // the queued press and leave the button looking held.
+                state = .idle
+                return [.releaseHeldPress(b), .replayRelease(b), .swallow]
+            }
             out.append(.releaseHeldPress(b))
             state = .delivered(down: [b])
         }
