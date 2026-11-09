@@ -15,6 +15,8 @@ final class EventTapController: SwipeEffects {
     private var source: CFRunLoopSource?
     private var heldDown: [MouseButton: CGEvent] = [:]
     private var currentEvent: CGEvent?
+    /// Buttons whose replayed press we posted but have not yet seen come back through the tap.
+    private var pendingReplayDown: Set<MouseButton> = []
 
     var isRunning: Bool { tap != nil }
 
@@ -66,6 +68,7 @@ final class EventTapController: SwipeEffects {
         tap = nil
         source = nil
         heldDown.removeAll()
+        pendingReplayDown.removeAll()
     }
 
     // MARK: event handling
@@ -76,6 +79,8 @@ final class EventTapController: SwipeEffects {
             return Unmanaged.passUnretained(event)
         }
         if event.getIntegerValueField(.eventSourceUserData) == Self.marker {
+            if type == .leftMouseDown { pendingReplayDown.remove(.left) }
+            if type == .rightMouseDown { pendingReplayDown.remove(.right) }
             return Unmanaged.passUnretained(event)
         }
         guard let input = mouseInput(type: type, event: event) else {
@@ -88,6 +93,13 @@ final class EventTapController: SwipeEffects {
 
         if case .down(let button, _) = input, result.swallow {
             heldDown[button] = event.copy()
+        }
+        // A posted press can arrive late. If the real release passed straight through now, it
+        // would overtake the press and the app would see up, then down (a stuck button).
+        // Queue the release behind the press instead; posted events keep their order.
+        if case .up(let button, _) = input, !result.swallow, pendingReplayDown.contains(button) {
+            post(event.copy() ?? event)
+            return nil
         }
         if let delay = result.scheduleTickAfter {
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
@@ -125,6 +137,7 @@ final class EventTapController: SwipeEffects {
 
     func replayHeldPress(_ button: MouseButton) {
         guard let event = heldDown.removeValue(forKey: button) else { return }
+        pendingReplayDown.insert(button)
         post(event)
     }
 
